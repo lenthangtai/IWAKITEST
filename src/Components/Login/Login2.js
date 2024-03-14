@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 export default function Login2() {
   const [form] = Form.useForm();
 
+
   return (
     <>
       <div className="FormLogin">
@@ -72,7 +73,7 @@ export default function Login2() {
                 </Button>
               )}
             </Form.Item> */}
-          </Form>
+          
           <Link
             className="linkForgot"
             // to="https://www.google.com"
@@ -81,13 +82,14 @@ export default function Login2() {
           </Link>
           <Button className="btnSignIn" htmlType="submit">
             {/* <Link to="/formSelect"> */}
-              <span style={{ margin: "auto" }}>Sign in</span>
-              <img className="iconArrow" src={Arrow} alt="" />
+            <span style={{ margin: "auto" }}>Sign in</span>
+            <img className="iconArrow" src={Arrow} alt="" />
             {/* </Link> */}
           </Button>
+          </Form>
         </div>
 
-        <div className="imageNenVector">
+        <div className="imageNenVectorLogin">
           <img src={BackgroundIconVector} />
         </div>
       </div>

@@ -16,6 +16,10 @@ import UploadImagesvg from "../../../Images/Upload image (2).svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 import { useSelector } from "react-redux";
+import iconUpload from "../../../Images/uploadPhotosLinear.svg";
+import iconImportant from "../../../Images/prioritizeLinear.svg";
+import iconClose from "../../../Images/iconClose.svg";
+import { localhost } from "../../../server";
 
 const MobileWebCam = () => {
   const [stream, setStream] = useState(null);
@@ -39,6 +43,9 @@ const MobileWebCam = () => {
   const [imageList, setImageList] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const userInfo = useSelector((state) => state.user);
+  const [isModalImageVisible, setIsModalImageVisible] = useState(false);
+  const [isModalDeleteImage, setIsModalDeleteImage] = useState(false);
+  const [isPrioritize, setIsPrioritize] = useState(false);
 
   useEffect(() => {
     const startCamera = async () => {
@@ -116,6 +123,44 @@ const MobileWebCam = () => {
   const toggleChecked = () => {
     setChecked(!checked);
   };
+
+  const handleCancel = () => {
+    setIsModalImageVisible(false);
+  };
+
+  const showModalDelete = () => {
+    setIsModalDeleteImage(true);
+  };
+  const handleDeleteOK = () => {
+    setIsModalDeleteImage(false);
+  };
+  const buttonPrioritize = () => {
+    isPrioritize ? setIsPrioritize(false) : setIsPrioritize(true);
+    // setIsPrioritize(true);
+  };
+
+  const handleDeleteCancel = () => {
+    setIsModalDeleteImage(false);
+  };
+  const onClickCheckImage = (imageName) => {
+    console.log("click");
+    const updatedImages = imageList.map((image) =>
+      image.imageName === imageName
+        ? { ...image, imageCheck: !image.imageCheck }
+        : { ...image }
+    );
+    setImageList(updatedImages);
+
+    console.log(updatedImages);
+  };
+  const countCheckedImages = () => {
+    return imageList.filter((image) => image.imageCheck).length;
+  };
+  const handleDeleteImagesOk = () => {
+    const updatedImages = imageList.filter((image) => !image.imageCheck);
+    setImageList(updatedImages);
+    setIsModalDeleteImage(false);
+  };
   const constraints = {
     video: {
       facingMode: facingMode,
@@ -135,12 +180,9 @@ const MobileWebCam = () => {
     // // Now you can use lastImageBase64 as needed
     // console.log("Last Image Base64:", lastImageBase64);
 
-    setOpenModal(true);
+    setIsModalImageVisible(true);
   };
-  const handleCancel = () => {
-    // setImageList([""]);
-    setOpenModal(false);
-  };
+
   const handleDeleteImage = (imageName) => {
     const updatedImageList = imageList.filter(
       (image) => image.imageName !== imageName
@@ -289,7 +331,9 @@ const MobileWebCam = () => {
       document.activeElement.blur();
     }, 600);
   });
-
+  const handleDeleteImages = () => {
+    showModalDelete();
+  };
   const editImage = () => {
     setCheckImg(false);
   };
@@ -364,61 +408,6 @@ const MobileWebCam = () => {
     setCheckViewImg(false);
   };
 
-  const uploadImage = async () => {
-    if (imgSrc !== null && imgSrc !== undefined && imgSrc !== "") {
-      const getFileCapture = localStorage.getItem("ImageData");
-      const nameFile = localStorage.getItem("fileName");
-
-      const byteCharacters = atob(getFileCapture.split(",")[1]);
-
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-
-      const byteArray = new Uint8Array(byteNumbers);
-
-      const buffer = byteArray.buffer;
-
-      const blob = new Blob([buffer], { type: "image/png" });
-
-      const getFile = new File([blob], nameFile, { type: "image/png" });
-      console.log(getFile);
-      const prioriti = checked ? "1" : "0";
-
-      const FormData = require("form-data");
-      let data = new FormData();
-      data.append("file_upload", getFile);
-      data.append("prioriti", prioriti);
-      axios
-        .post("http://192.168.10.22:5009/upload_file", data)
-        .then((response) => {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-
-      // let config = {
-      //   method: "post",
-      //   maxBodyLength: Infinity,
-      //   url: "http://192.168.20.162:1111/api/import-img/",
-      //   data: data,
-      // };
-
-      // axios
-      //   .request(config)
-      //   .then((response) => {
-      //     setChecked(false);
-      //     setCheckImg(false);
-      //     setImgSrc(null);
-      //     console.log(JSON.stringify(response.data));
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
-    }
-  };
   const handleFullScreen = () => {
     setIsImgFullScreen(true);
   };
@@ -455,9 +444,11 @@ const MobileWebCam = () => {
       data.append("file_upload", getFile);
     });
     axios
-      .post("http://192.168.10.22:5009/upload_file", data)
+      .post(`${localhost}upload_file`, data)
       .then((response) => {
         console.log(JSON.stringify(response.data));
+        setImageList([]);
+        setIsModalImageVisible(false);
       })
       .catch((error) => {
         console.log(error);
@@ -569,100 +560,138 @@ const MobileWebCam = () => {
             </Col>
           </Row>
           <Modal
-            className="ModalShowImage"
-            open={openModal}
-            onCancel={handleCancel}
+            width="100%"
+            className="ModalViewImage"
+            open={isModalImageVisible}
+            closable={false}
             footer={null}
+            style={{
+              top: "60px",
+              width: "100%",
+              maxWidth: "100%",
+            }}
           >
-            {imageList.map((image) => (
-              <div key={image.imageName}>
-                <Row className="modalShowImageImg">
-                  <img
-                    style={{ width: "80%" }}
-                    src={image.imageBase64}
-                    alt={image.imageName}
-                  />
-                </Row>
-                <Row>
-                  <Col>
-                    <p>{image.imageName}</p>
-                  </Col>
-                  <Col>
-                    <Button
-                      style={{
-                        display: "block",
-                        marginBlockStart: "1em",
-                        marginBlockEnd: " 1em",
-                        marginInlineStart: "0px",
-                        marginInlineEnd: "0px",
-                      }}
-                      type="primary"
-                      onClick={() => handleDeleteImage(image.imageName)}
-                    >
-                      DELETE
-                    </Button>
-                  </Col>
-                </Row>
+            <div className="HeaderModal">
+              <button className="buttonCloseModalView" onClick={handleCancel}>
+                <img src={iconClose} />
+              </button>
+              {countCheckedImages() > 0 ? (
+                <>
+                  <span className="spanTitleHeader">
+                    Đã chọn {countCheckedImages()} ảnh
+                  </span>
+                  <span className="spanTitleChoose">Hủy</span>
+                </>
+              ) : (
+                <>
+                  <span className="spanTitleHeader">Ảnh đã chụp</span>
+                  <span className="spanTitleChoose">Chọn</span>
+                </>
+              )}
+              {/* <span className="spanTitleHeader">
+            {countCheckedImages() > 0 ? (
+              <span>Đã chọn {countCheckedImages()} ảnh</span>
+            ) : (
+              <span>Ảnh đã chụp</span>
+            )}
+          </span>
+          <span>Chọn</span> */}
+            </div>
+            <div
+              className="imageGallery"
+              style={{ overflowY: "auto", maxHeight: "calc(70svh - 20svh)" }}
+            >
+              {imageList.map((image) => (
+                <div key={image.imageName} className="image-item">
+                  <button
+                    onClick={() => onClickCheckImage(image.imageName)}
+                    style={{ backgroundColor: "white", border: "none" }}
+                  >
+                    <img
+                      className="imageSourceGalley"
+                      src={image.imageBase64}
+                      alt={image.imageName}
+                    />
+                  </button>
+                  {image.imageCheck ? (
+                    <div className="inputRadio">
+                      <input
+                        onClick={() => onClickCheckImage(image.imageName)}
+                        checked={image.imageCheck}
+                        alt={image.imageName}
+                        type="radio"
+                      />
+                    </div>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+            <div className="FooterDeleteImage">
+              {isPrioritize ? (
+                <button className="buttonDeleteImage">
+                  <span className="textButtonDelete">
+                    Tệp ảnh này đã được ưu tiên
+                  </span>
+                </button>
+              ) : countCheckedImages() > 0 ? (
+                <>
+                  <button
+                    onClick={handleDeleteImages}
+                    className="buttonDeleteImage"
+                  >
+                    <span className="textButtonDelete">
+                      Xóa {countCheckedImages()} ảnh
+                    </span>
+                  </button>
+                  <Modal
+                    className="ModalDeleteImages"
+                    open={isModalDeleteImage}
+                    closable={false}
+                    footer={null}
+                    width={"65%"}
+                    style={{
+                      top: "35%",
+                      padding: " 10px",
+                      borderRadius: " 8px",
+                      gap: "8px",
+                    }}
+                  >
+                    <div className="TitleDeleteImage">
+                      <span>Bạn có chắc chắn muốn xóa ảnh này không ?</span>
+                    </div>
+                    <div className="ButtonDeleteModal">
+                      <button
+                        className="ButtonDeleteAll"
+                        onClick={handleDeleteImagesOk}
+                      >
+                        Có
+                      </button>
+                      <button
+                        className="ButtonDeleteAll"
+                        onClick={handleDeleteCancel}
+                      >
+                        Không
+                      </button>
+                    </div>
+                  </Modal>
+                </>
+              ) : null}
+            </div>
+            <div className="footerModal">
+              <div className="divUploadBtn">
+                <button className="uploadButton" onClick={multiUploadImage}>
+                  <img src={iconUpload} />
+                </button>
+                <span>Upload Toàn bộ</span>
               </div>
-            ))}
-            <div className="FooterModal">
-              <Row
-                style={{
-                  // height: "20svh",
-                  // position: "fixed",
-                  // bottom: 0,
-                  // zIndex: 10,
-                  background: "#0000001c",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  width: "100%",
-                }}
-              >
-                <Col
-                  span={8}
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  {/* <EditOutlined
-                  className="btn-Edit-camera"
-                  onClick={editImage}
-                  style={{ fontSize: "40px", color: "#fff", cursor: "unset" }}
-                /> */}
-                </Col>
-                <Col
-                  span={8}
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <img
-                    className="btnUpload"
-                    src={UploadImagesvg}
-                    alt="UploadImagesvg"
-                    onClick={multiUploadImage}
-                    style={{ width: "65%" }}
-                  />
-                </Col>
-                <Col
-                  span={8}
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Checkbox
-                    onChange={onChangeCheckBox}
-                    checked={checked}
-                  ></Checkbox>
-                </Col>
-              </Row>
+              <div className="divCheckbox">
+                <button onClick={buttonPrioritize} className="checkBoxButton">
+                  <img src={iconImportant} />
+                </button>
+                <span>Ưu tiên</span>
+              </div>
+
+              {/* <input className="checkBoxButton" type="checkbox" /> */}
             </div>
           </Modal>
         </>

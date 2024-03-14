@@ -179,46 +179,46 @@ function WindowCamera() {
   };
 
   const uploadImage = async () => {
-    const getFileCapture = localStorage.getItem("ImageData");
-    const nameFile = localStorage.getItem("fileName");
+    // const getFileCapture = localStorage.getItem("ImageData");
+    // const nameFile = localStorage.getItem("fileName");
 
-    const byteCharacters = atob(getFileCapture.split(",")[1]);
+    // const byteCharacters = atob(getFileCapture.split(",")[1]);
 
-    const byteNumbers = new Array(byteCharacters.length);
+    // const byteNumbers = new Array(byteCharacters.length);
 
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
+    // for (let i = 0; i < byteCharacters.length; i++) {
+    //   byteNumbers[i] = byteCharacters.charCodeAt(i);
+    // }
 
-    const byteArray = new Uint8Array(byteNumbers);
+    // const byteArray = new Uint8Array(byteNumbers);
 
-    const buffer = byteArray.buffer;
+    // const buffer = byteArray.buffer;
 
-    const blob = new Blob([buffer], { type: "image/png" });
+    // const blob = new Blob([buffer], { type: "image/png" });
 
-    const getFile = new File([blob], nameFile, { type: "image/png" });
+    // const getFile = new File([blob], nameFile, { type: "image/png" });
 
-    console.log(getFile);
-    const prioriti = checked ? "1" : "0";
-    console.log(checked);
-    console.log(prioriti);
+    // console.log(getFile);
+    // const prioriti = checked ? "1" : "0";
+    // console.log(checked);
+    // console.log(prioriti);
 
-    const FormData = require("form-data");
+    // const FormData = require("form-data");
 
-    let data = new FormData();
+    // let data = new FormData();
 
-    data.append("file_upload", getFile);
+    // data.append("file_upload", getFile);
 
-    data.append("prioriti", prioriti);
+    // data.append("prioriti", prioriti);
 
-    axios
-      .post("http://192.168.10.22:5009/upload_file", data)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // axios
+    //   .post("http://192.168.10.22:5009/upload_file", data)
+    //   .then((response) => {
+    //     console.log(JSON.stringify(response.data));
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
   const onChangeCheckBox = (e) => {
     console.log("checked = ", e.target.checked);

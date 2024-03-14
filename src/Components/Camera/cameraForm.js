@@ -7,5 +7,7 @@ import WindowCamera from "./Window";
 export default function CameraForm() {
   const isMobile = window.innerWidth <= 1024;
 
-  return <>{isMobile ? <MobileWebCam /> : <WindowCamera />}</>;
+  // return <>{isMobile ? <MobileWebCam /> : <WindowCamera />}</>;
+  return <MobileWebCam />;
+
 }

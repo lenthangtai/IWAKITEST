@@ -1,50 +1,49 @@
-import React, { useState } from "react";
-import { Router, useLocation, Switch, Redirect, Route } from "react-router-dom";
-import Login from "../Login/login";
-import Cookies from "universal-cookie";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+// App.js
 
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+  useLocation,
+} from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
+import Login from "./Login";
+import Dashboard from "./DashBoard";
 function PageTitleUpdater() {
   const location = useLocation();
 
   React.useEffect(() => {
     const path = location.pathname;
     let pageTitle = "IWAKI"; // Đặt tiêu đề mặc định
-    if(path ==="/"){
-      pageTitle = "SELECT FORM";
-    }
-    // Cập nhật tiêu đề dựa trên URL
-    // if (path === "/") {
-    //   pageTitle = "QC management";
-    // } else if (path === "/export-document") {
-    //   pageTitle = "Tùy chọn mẫu xuất hóa đơn";
-    // } else if (path === "/category-master") {
-    //   pageTitle = "Danh mục Master";
-    // } else if (path === "/invoice") {
-    //   pageTitle = "Hóa đơn";
-    // } else if (path === "/statement") {
-    //   pageTitle = "Sao kê";
-    // } else if (path === "/history") {
-    //   pageTitle = "Lịch sử tải lên";
-    // } else if (path === "/accounting-invoice") {
-    //   pageTitle = "Định khoản hóa đơn";
-    // } else if (path === "/accounting-statement") {
-    //   pageTitle = "Định khoản sao kê";
-    // }
 
+    // Cập nhật tiêu đề dựa trên URL
+    if (path === "/") {
+      pageTitle = "FormSelect";
+    }
     // Cập nhật tiêu đề trang
     document.title = pageTitle;
   }, [location]);
 
   return null;
 }
-
-export default function Main() {
-  const dispatch = useDispatch();
+function Main() {
   const [lsPermissions, setLsPermissions] = useState([]);
+  const [lsPermissionsType, setLsPermissionsType] = useState([]);
+  const auth = sessionStorage.getItem("token");
+  const userInfo = sessionStorage.getItem("userInfo");
+  useEffect(() => {
+    if (auth === true) {
+      const userInfo = sessionStorage.getItem("userInfo");
+    }
+  }, [auth]);
+  useEffect(() => {
+    if (userInfo !== null && userInfo !== undefined) {
+      setLsPermissions([userInfo.user_role_title]);
+    }
+  }, [userInfo]);
 
-  
   return (
     <Router>
       <PageTitleUpdater />
@@ -52,59 +51,85 @@ export default function Main() {
         <ProtectLoginRoute
           exact
           path="/login"
-        //   protect={auth}
-        //   user_info={userInfo}
+          protect={auth}
+          user_info={userInfo}
         >
-          {/* <UserLayout> */}
-            <Login />
-          {/* </UserLayout> */}
+          <Login />
         </ProtectLoginRoute>
-        {/* <RouteWithLayout
-          component={Management}
-          exact
-          layout={CustomLayout}
+        <PrivateRoute component={Dashboard} path="/" />
+        {/* <RouteWithoutLayout
+          component={Dashboard}
           path="/"
           isPrivate={true}
           lsPermissions={lsPermissions}
-          permission={["Admin"]}
+          permission={["APP_USER"]}
           isLogged={auth}
         /> */}
       </Switch>
     </Router>
   );
 }
+const RouteWithoutLayout = (props) => {
+  const {
+    isLogged: isLogged,
+    component: Component,
+    isPrivate: isPrivate,
+    lsPermissions: lsPermissions,
+    permission: permission,
+    path: path,
+    ...rest
+  } = props;
+  return (
+    <Route
+      {...rest}
+      render={() =>
+        isPrivate ? (
+          isLogged ? (
+            lsPermissions ? (
+              <Component
+                islogged={isLogged}
+                permission={lsPermissions}
+                {...props}
+              />
+            ) : (
+              <span></span>
+            )
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: props.location },
+              }}
+            />
+          )
+        ) : (
+          <Component
+            isLogged={isLogged}
+            permission={lsPermissions}
+            {...props}
+          />
+        )
+      }
+    />
+  );
+};
 
 const RouteWithLayout = (props) => {
   const {
-    layout: Layout,
-    // eslint-disable-next-line no-useless-rename
     isLogged: isLogged,
     component: Component,
-    // eslint-disable-next-line no-useless-rename
     isPrivate: isPrivate,
-    // eslint-disable-next-line no-useless-rename
     lsPermissions: lsPermissions,
-    // eslint-disable-next-line no-useless-rename
     permission: permission,
-    // eslint-disable-next-line no-useless-rename
+
     path: path,
-    // eslint-disable-next-line no-useless-rename
-    isSuperA: isSuperA,
     ...rest
   } = props;
+
   const getRejectRoute = (type) => {
     if (type !== "404" && path !== "/") {
       type = "403";
     }
-
-    // switch (type) {
-    //   case "403":
-    //     return <NotPermission />;
-    //   case "404":
-    //     return <NotfoundLayout />;
-    //   default:
-    //     return <NotPermission />;
-    // }
   };
   return (
     <Route
@@ -114,9 +139,7 @@ const RouteWithLayout = (props) => {
           isLogged ? (
             lsPermissions && lsPermissions.length > 0 ? (
               lsPermissions.some((r) => permission.includes(r)) ? (
-                <Layout isLogged={isLogged}>
-                  <Component {...props} />
-                </Layout>
+                <Component {...props} />
               ) : (
                 getRejectRoute(permission)
               )
@@ -132,9 +155,7 @@ const RouteWithLayout = (props) => {
             />
           )
         ) : (
-          <Layout isLogged={isLogged}>
-            <Component {...props} />
-          </Layout>
+          <Component {...props} />
         )
       }
     />
@@ -165,3 +186,4 @@ const ProtectLoginRoute = ({
     </>
   );
 };
+export default Main;
