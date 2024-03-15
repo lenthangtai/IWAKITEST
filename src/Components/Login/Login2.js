@@ -88,7 +88,7 @@ export default function Login2() {
           </Button>
           </Form>
         </div>
-
+``
         <div className="imageNenVectorLogin">
           <img src={BackgroundIconVector} />
         </div>

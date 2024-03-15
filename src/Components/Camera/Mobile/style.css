@@ -1,4 +1,4 @@
-.hidden {
+/* .hidden {
   visibility: hidden;
 }
 .content {
@@ -26,12 +26,10 @@
 .contentImage {
   margin: 50px 0 50px;
 }
-video.contentCamera {
-  position: fixed;
-}
 video {
   width: 100%;
   height: 100dvh;
+  position: fixed;
 }
 img {
   width: 100%;
@@ -55,6 +53,9 @@ img {
   color: unset;
   border-color: unset;
 }
+
+
+
 .btn-capture {
   position: relative;
   background-color: #fff;
@@ -113,14 +114,4 @@ img {
   to {
     transform: rotate(180deg);
   }
-}
-
-.ant-checkbox .ant-checkbox-inner {
-  width: 28px;
-  height: 28px;
-}
-.ant-checkbox .ant-checkbox-inner:after {
-  width: 9px;
-  height: 17px;
-}
-
+} */

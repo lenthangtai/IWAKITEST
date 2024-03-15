@@ -7,7 +7,7 @@ import {
   DeleteOutlined,
   CloudUploadOutlined,
 } from "@ant-design/icons";
-import "./style.css";
+// import "./style.css";
 // import UploadImagesvg from "../../Images/Upload image (2).svg"
 
 function WindowCamera() {

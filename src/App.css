@@ -1,4 +1,4 @@
-.hidden {
+/* .hidden {
   visibility: hidden;
 }
 .content {
@@ -8,10 +8,6 @@
   justify-content: space-between;
 }
 
-.contentCamera,
-.contentImage {
-
-}
 .showCamera {
   height: 100svh;
 }
@@ -118,4 +114,4 @@ img {
   to {
     transform: rotate(180deg);
   }
-}
+} */

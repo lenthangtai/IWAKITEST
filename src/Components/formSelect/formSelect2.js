@@ -6,16 +6,18 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { Modal, Row, Upload, message } from "antd";
 import { Link } from "react-router-dom";
-import iconUpload from "../../Images/uploadPhotosLinear.svg";
-import iconImportant from "../../Images/prioritizeLinear.svg";
-import iconClose from "../../Images/iconClose.svg";
-import iconSuccess from "../../Images/iconComplete.svg";
 
 import { ModalViewImage } from "./modalUpload/Mobile/ModalImage";
 import { localhost } from "../../server";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 
+import iconUpload from "../../Images/uploadPhotosLinear.svg";
+import iconUploadActive from "../../Images/uploadPhotosLinearHover.svg";
+import iconImportant from "../../Images/prioritizeLinear.svg";
+import iconImportantActive from "../../Images/prioritizeBoad.svg";
+import iconClose from "../../Images/iconClose.svg";
+import iconSuccess from "../../Images/iconComplete.svg";
 const MySwal = withReactContent(Swal);
 
 export default function FormSelect2() {
@@ -39,6 +41,7 @@ export default function FormSelect2() {
   const handleCancel = () => {
     setImageList([]);
     setIsModalImageVisible(false);
+    setIsPrioritize(false);
   };
 
   const showModalDelete = () => {
@@ -82,7 +85,16 @@ export default function FormSelect2() {
     const updatedImages = imageList.filter((image) => !image.imageCheck);
     setImageList(updatedImages);
     setIsModalDeleteImage(false);
+    if (imageList.length === 0) {
+      setIsModalImageVisible(false);
+    }
   };
+
+  useEffect(() => {
+    if (imageList.length === 0) {
+      setIsModalImageVisible(false);
+    }
+  }, [imageList]);
   // const handleDeleteImages = () => {
   //   MySwal.fire({
   //     title: (
@@ -176,6 +188,7 @@ export default function FormSelect2() {
   };
 
   const [checkedTime, setCheckedTime] = useState(null);
+  const [isUpdating, setIsUpdating] = useState(null);
 
   const multiUploadImage = async () => {
     setCheckedTime(false);
@@ -218,11 +231,11 @@ export default function FormSelect2() {
         });
     } catch (error) {
       console.error("Error:", error);
-      MySwal.fire({
-        icon: "error",
-        title: "Lỗi!",
-        text: "Có lỗi xảy ra khi gửi dữ liệu.",
-      });
+      // MySwal.fire({
+      //   icon: "error",
+      //   title: "Lỗi!",
+      //   text: "Có lỗi xảy ra khi gửi dữ liệu.",
+      // });
     }
   };
 
@@ -238,13 +251,17 @@ export default function FormSelect2() {
       });
       setImageList([]);
       setIsModalImageVisible(false);
+      setIsUpdating(false);
+      setIsPrioritize(false);
     } else if (checkedTime === false) {
       setCheckedTime(null);
       MySwal.fire({
         title: <span>Đang upload toàn bộ ảnh</span>,
         showConfirmButton: false,
         timer: 2000000,
+        allowOutsideClick: false,
       });
+      setIsUpdating(true);
     }
   }, [checkedTime]);
 
@@ -320,7 +337,7 @@ export default function FormSelect2() {
             open={isModalImageVisible}
             closable={false}
             footer={null}
-            style={{}}
+            style={{top:'60px'}}
           >
             <div className="HeaderModal">
               <button className="buttonCloseModalView" onClick={handleCancel}>
@@ -344,7 +361,10 @@ export default function FormSelect2() {
               ) : (
                 <>
                   <span className="spanTitleHeader">Ảnh đã chụp</span>
-                  <button className="spanTitleChoose" onClick={onClickChooseAllImage}>
+                  <button
+                    className="spanTitleChoose"
+                    onClick={onClickChooseAllImage}
+                  >
                     <span>Chọn</span>
                   </button>
                 </>
@@ -380,7 +400,7 @@ export default function FormSelect2() {
               ))}
             </div>
             <div className="FooterDeleteImage">
-              {isPrioritize ? (
+              {/* {isPrioritize ? (
                 <button className="buttonDeleteImage">
                   <span className="textButtonDelete">
                     Tệp ảnh này đã được ưu tiên
@@ -428,18 +448,63 @@ export default function FormSelect2() {
                     </div>
                   </Modal>
                 </>
+              ) : null} */}
+              {countCheckedImages() > 0 ? (
+                <>
+                  <button
+                    onClick={handleDeleteImages}
+                    className="buttonDeleteImage"
+                  >
+                    <span className="textButtonDelete">
+                      Xóa {countCheckedImages()} ảnh
+                    </span>
+                  </button>
+                  <Modal
+                    className="ModalDeleteImages"
+                    open={isModalDeleteImage}
+                    closable={false}
+                    footer={null}
+                    width={"65%"}
+                    style={{
+                      top: "35%",
+                      padding: " 10px",
+                      borderRadius: " 8px",
+                      gap: "8px",
+                    }}
+                  >
+                    <div className="TitleDeleteImage">
+                      <span>Bạn có chắc chắn muốn xóa ảnh này không ?</span>
+                    </div>
+                    <div className="ButtonDeleteModal">
+                      <button
+                        className="ButtonDeleteAll"
+                        onClick={handleDeleteImagesOk}
+                      >
+                        Có
+                      </button>
+                      <button
+                        className="ButtonDeleteAll"
+                        onClick={handleDeleteCancel}
+                      >
+                        Không
+                      </button>
+                    </div>
+                  </Modal>
+                </>
               ) : null}
             </div>
             <div className="footerModal">
               <div className="divUploadBtn">
                 <button className="uploadButton" onClick={multiUploadImage}>
-                  <img src={iconUpload} />
+                  <img src={isUpdating ? iconUploadActive : iconUpload} />
                 </button>
                 <span>Upload Toàn bộ</span>
               </div>
               <div className="divCheckbox">
                 <button onClick={buttonPrioritize} className="checkBoxButton">
-                  <img src={iconImportant} />
+                  <img
+                    src={isPrioritize ? iconImportantActive : iconImportant}
+                  />
                 </button>
                 <span>Ưu tiên</span>
               </div>

@@ -1,16 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import axios from "axios";
-// import "./style.css";
-import {
-  // Button,
-  Col,
-  Row,
-  Checkbox,
-  Button,
-  Modal,
-} from "antd";
+import "./CameraMobile.css";
+import { Col, Row, Checkbox, Button, Modal } from "antd";
 import { SyncOutlined, EditOutlined } from "@ant-design/icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SwipeableViews from "react-swipeable-views";
 import UploadImagesvg from "../../../Images/Upload image (2).svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,28 +12,26 @@ import iconUpload from "../../../Images/uploadPhotosLinear.svg";
 import iconImportant from "../../../Images/prioritizeLinear.svg";
 import iconClose from "../../../Images/iconClose.svg";
 import { localhost } from "../../../server";
+import iconUploadActive from "../../../Images/uploadPhotosLinearHover.svg";
+import iconImportantActive from "../../../Images/prioritizeBoad.svg";
+import withReactContent from "sweetalert2-react-content";
+import iconSuccess from "../../../Images/iconComplete.svg";
 
-const MobileWebCam = () => {
+import Swal from "sweetalert2";
+const MySwal = withReactContent(Swal);
+const MobileWebCam2 = () => {
   const [stream, setStream] = useState(null);
   const [facingMode, setFacingMode] = useState("environment");
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [isFrontCamera, setIsFrontCamera] = useState(true);
-  const [imgSrc, setImgSrc] = useState();
   const [isSwitchingCamera, setIsSwitchingCamera] = useState(false);
-  const [isCaptureLoad, setIsCaptureLoad] = useState(false);
 
-  // const [rotate, setRotate] = useState(0);
-  // const [isImgFullScreen, setIsImgFullScreen] = useState(false);
-  const [zoomLevel, setZoomLevel] = useState(1.0);
-  const [isDisabledSwip, setIsDisabledSwip] = useState(true);
   const [checkImg, setCheckImg] = useState(false);
   const [checked, setChecked] = useState(false);
   const [disabledApp, setDisabledApp] = useState(true);
-  const [checkViewImg, setCheckViewImg] = useState(false);
-  const [isImgFullScreen, setIsImgFullScreen] = useState(false);
+
   const [imageList, setImageList] = useState([]);
-  const [openModal, setOpenModal] = useState(false);
   const userInfo = useSelector((state) => state.user);
   const [isModalImageVisible, setIsModalImageVisible] = useState(false);
   const [isModalDeleteImage, setIsModalDeleteImage] = useState(false);
@@ -160,7 +150,15 @@ const MobileWebCam = () => {
     const updatedImages = imageList.filter((image) => !image.imageCheck);
     setImageList(updatedImages);
     setIsModalDeleteImage(false);
+    if (imageList.length === 0) {
+      setIsModalImageVisible(false);
+    }
   };
+  useEffect(() => {
+    if (imageList.length === 0) {
+      setIsModalImageVisible(false);
+    }
+  }, [imageList]);
   const constraints = {
     video: {
       facingMode: facingMode,
@@ -169,50 +167,9 @@ const MobileWebCam = () => {
     },
     audio: false,
   };
-  window.onpopstate = function () {
-    setIsImgFullScreen(false);
-  };
   const showModal = () => {
-    // Assuming imageList is your array of imageInfo objects
-    // const lastImageBase64 =
-    //   imageList.length > 0 ? imageList[imageList.length - 1].imageBase64 : null;
-
-    // // Now you can use lastImageBase64 as needed
-    // console.log("Last Image Base64:", lastImageBase64);
-
     setIsModalImageVisible(true);
   };
-
-  const handleDeleteImage = (imageName) => {
-    const updatedImageList = imageList.filter(
-      (image) => image.imageName !== imageName
-    );
-    setImageList(updatedImageList);
-    if (updatedImageList.length === 0) {
-      setOpenModal(false);
-    }
-  };
-
-  // const disabledSwip = useCallback(
-  //   (setImgSrc) => {
-  //     if (setImgSrc !== null && setImgSrc !== undefined && setImgSrc !== "") {
-  //       setIsDisabledSwip(false);
-  //     } else {
-  //       setIsDisabledSwip(true);
-  //     }
-  //   },
-  //   [setImgSrc]
-  // );
-  // const disabledCapture = useCallback(
-  //   (setImgSrc) => {
-  //     if (setImgSrc !== null && setImgSrc !== undefined && setImgSrc !== "") {
-  //       setCheckImg(true);
-  //     } else {
-  //       setCheckImg(false);
-  //     }
-  //   },
-  //   [setImgSrc]
-  // );
 
   const captureImage = () => {
     try {
@@ -231,13 +188,8 @@ const MobileWebCam = () => {
         }
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         context.restore();
-        // // video.load();
         const imageData = canvas.toDataURL("image/png", 1);
-        // setImgSrc(imageData);
-        // localStorage.setItem("fileName", "fileName.png");
-        // localStorage.setItem("ImageData", imageData);
-        // console.log(imageData);
-        // disabledCapture(setImgSrc);
+
         const now = new Date();
 
         const day = now.getDate() < 10 ? `0${now.getDate()}` : now.getDate();
@@ -271,25 +223,6 @@ const MobileWebCam = () => {
     console.log("checked = ", e.target.checked);
     setChecked(e.target.checked);
   };
-  // useEffect(() => {
-  //   window.history.pushState(null, null, window.top.location.pathname + window.top.location.search);
-  //   window.addEventListener('popstate', (e) => {
-  //     e.preventDefault();
-  //     // Insert Your Logic Here, You Can Do Whatever You Want
-  //     // setIsImgFullScreen(false)
-  //   });
-  // }, []);
-
-  // window.onpopstate = function () {
-  //   setIsImgFullScreen(false);
-  // };
-
-  // useEffect(() => {
-  //   console.log(videoRef.current);
-  // }, [videoRef]);
-  // const closeImage = useCallback(() => {
-  //   setIsImgFullScreen(false);
-  // }, [setIsImgFullScreen]);
 
   const switchCamera = useCallback(() => {
     navigator.mediaDevices
@@ -337,166 +270,115 @@ const MobileWebCam = () => {
   const editImage = () => {
     setCheckImg(false);
   };
-  // const handleFullScreen = () => {
-  //   setIsImgFullScreen(true);
-  // };
+  const [checkedTime, setCheckedTime] = useState(null);
+  const [isUpdating, setIsUpdating] = useState(null);
 
-  // const handleScroll = (event) => {
-  //   event.preventDefault();
-  //   const delta = event.deltaY || event.detail || event.wheelDelta;
-
-  //   // Tính toán zoom level dựa trên hướng cuộn (lên hay xuống)
-  //   const newZoomLevel = delta > 0 ? zoomLevel - 0.1 : zoomLevel + 0.1;
-
-  //   // Giới hạn giá trị zoom trong khoảng từ 0.5 đến 2.0 (có thể điều chỉnh)
-  //   const clampedZoomLevel = Math.min(Math.max(newZoomLevel, 1.0), 3.0);
-  //   console.log(clampedZoomLevel);
-  //   setZoomLevel(clampedZoomLevel);
-
-  //   if (videoRef.current) {
-  //     videoRef.current.style.transform = `scale(${clampedZoomLevel})`;
-  //   }
-  // };
-
-  // const [initialDistance, setInitialDistance] = useState(null);
-  // const [zoomLevel, setZoomLevel] = useState(1.0);
-
-  // const handleTouchStart = (event) => {
-  //   const touches = event.touches;
-
-  //   if (touches.length === 2) {
-  //     const distance = Math.hypot(
-  //       touches[1].clientX - touches[0].clientX,
-  //       touches[1].clientY - touches[0].clientY
-  //     );
-  //     setInitialDistance(distance);
-  //   }
-  // };
-
-  // const handleTouchMove = (event) => {
-  //   const touches = event.touches;
-
-  //   if (touches.length === 2 && initialDistance) {
-  //     const distance = Math.hypot(
-  //       touches[1].clientX - touches[0].clientX,
-  //       touches[1].clientY - touches[0].clientY
-  //     );
-
-  //     const zoomIncrement = 0.15; // Có thể điều chỉnh tốc độ zoom
-  //     const zoomChange = (distance - initialDistance) * zoomIncrement;
-
-  //     const newZoomLevel = zoomLevel + zoomChange;
-
-  //     // Giới hạn giá trị zoom trong khoảng từ 0.5 đến 2.0 (có thể điều chỉnh)
-  //     const clampedZoomLevel = Math.min(Math.max(newZoomLevel, 1), 5.0);
-
-  //     setZoomLevel(clampedZoomLevel);
-
-  //     if (videoRef.current) {
-  //       videoRef.current.style.transform = `scale(${clampedZoomLevel})`;
-  //     }
-  //   }
-  // };
-
-  // const handleTouchEnd = () => {
-  //   setInitialDistance(null);
-  // };
-  const onChangeViewImage = () => {
-    setCheckViewImg(true);
-  };
-  const onChangeOffViewImage = () => {
-    setCheckViewImg(false);
-  };
-
-  const handleFullScreen = () => {
-    setIsImgFullScreen(true);
-  };
   const multiUploadImage = async () => {
-    console.log(imageList);
+    setCheckedTime(false);
+    try {
+      console.log(imageList);
 
-    const prioriti = checked ? "1" : "0";
-    const FormData = require("form-data");
-    let data = new FormData();
-    data.append("prioriti", prioriti);
-    data.append("id_user", userInfo.user_id);
-    data.append("type_upload", "2");
-    data.append("pumb_model", "LK");
-    imageList.map((image) => {
-      const nameFile = image.imageName;
-      const typeFile = image.imageType;
-      const getFileBase64 = image.imageBase64;
+      const prioriti = checked ? "1" : "0";
+      const FormData = require("form-data");
+      let data = new FormData();
+      data.append("prioriti", prioriti);
+      data.append("id_user", userInfo.user_id);
+      data.append("type_upload", "2");
+      data.append("pumb_model", "LK");
+      imageList.map((image) => {
+        const nameFile = image.imageName;
+        const typeFile = image.imageType;
+        const getFileBase64 = image.imageBase64;
 
-      const byteCharacters = atob(getFileBase64.split(",")[1]);
+        const byteCharacters = atob(getFileBase64.split(",")[1]);
 
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
 
-      const byteArray = new Uint8Array(byteNumbers);
+        const byteArray = new Uint8Array(byteNumbers);
 
-      const buffer = byteArray.buffer;
+        const buffer = byteArray.buffer;
 
-      const blob = new Blob([buffer], { type: typeFile });
+        const blob = new Blob([buffer], { type: typeFile });
 
-      const getFile = new File([blob], nameFile, { type: typeFile });
-      console.log(getFile);
-      data.append("file_upload", getFile);
-    });
-    axios
-      .post(`${localhost}upload_file`, data)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-        setImageList([]);
-        setIsModalImageVisible(false);
-      })
-      .catch((error) => {
-        console.log(error);
+        const getFile = new File([blob], nameFile, { type: typeFile });
+        console.log(getFile);
+        data.append("file_upload", getFile);
       });
+      axios
+        .post(`${localhost}upload_file`, data)
+        .then((response) => {
+          setCheckedTime(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.error("Error:", error);
+      // MySwal.fire({
+      //   icon: "error",
+      //   title: "Lỗi!",
+      //   text: "Có lỗi xảy ra khi gửi dữ liệu.",
+      // });
+    }
+  };
+
+  useEffect(() => {
+    if (checkedTime === true) {
+      setCheckedTime(null);
+      MySwal.fire({
+        iconHtml: <img src={iconSuccess} />,
+        title: "Hoàn thành !!",
+        customClass: "custome-success",
+        showConfirmButton: false,
+        timer: 2500,
+      });
+      setImageList([]);
+      setIsModalImageVisible(false);
+      setIsUpdating(false);
+      setIsPrioritize(false);
+    } else if (checkedTime === false) {
+      setCheckedTime(null);
+      MySwal.fire({
+        title: <span>Đang upload toàn bộ ảnh</span>,
+        showConfirmButton: false,
+        timer: 2000000,
+        allowOutsideClick: false,
+      });
+      setIsUpdating(true);
+    }
+  }, [checkedTime]);
+  const onClickCancelCheckImage = () => {
+    const updatedImages = imageList.map((image) =>
+      image.imageCheck === true ? { ...image, imageCheck: false } : { ...image }
+    );
+    setImageList(updatedImages);
+  };
+  const onClickChooseAllImage = () => {
+    // console.log(imageList);
+    // const updatedImages = imageList.map((image) =>
+    //   image.imageCheck === false ? { ...image, imageCheck: true } : { ...image }
+    // );
+    // setImageList(updatedImages);
   };
   return (
     <>
-      <div style={{ position: "relative", maxHeight: "100svh", width: "70%",margin:'auto' }}>
+      <div className="CameraDesign">
         <>
-          <Row
-            style={{ position: "relative", width: "100%", height: "100svh",top:0 }}
-          >
+          <div className="CameraVideoDesign">
             <video
+              className="VideoDesign"
               ref={videoRef}
               autoPlay
               playsInline
-              // onWheel={handleScroll}
-              // onTouchStart={handleTouchStart}
-              // onTouchMove={handleTouchMove}
-              // onTouchEnd={handleTouchEnd}
               style={{
-                //transform:facingMode === "user" ? `scale(${zoomLevel})` : "none",
                 transform: facingMode === "user" ? "scaleX(-1)" : "none",
               }}
             ></video>
-          </Row>
-          <Row
-            style={{
-              height: "20svh",
-              position: "absolute",
-              bottom: 0,
-              zIndex: 10,
-              background: "#0000001c",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-            }}
-          >
-            <Col
-              span={8}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
+            <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
+            <div className="FooterCameraDesign">
               {imageList.length > 0 ? (
                 <img
                   onClick={showModal}
@@ -513,52 +395,20 @@ const MobileWebCam = () => {
                 </>
               )}
 
-              {/*{imgSrc ? (
-                <img
-                   onClick={showModal}
-                   src={imgSrc}
-                   style={{ width: 50, height: 50, borderRadius: "50%" }}
-                   alt="Captured"
-                 />
-               ) : (
-                 <>
-                  <FontAwesomeIcon
-                     icon={faImage}
-                     style={{ fontSize: 40, color: "#fff" }}
-                   />
-                 </>
-               )} */}
-            </Col>
-            <Col
-              span={8}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
               <button
                 disabled={disabledApp}
                 className="btn-capture"
                 onClick={captureImage}
               />
-            </Col>
-            <Col
-              span={8}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
               <SyncOutlined
                 className="btn-switch-camera"
                 disabled={disabledApp}
                 onClick={switchCamera}
                 style={{ fontSize: "40px", color: "#fff", cursor: "unset" }}
               />
-            </Col>
-          </Row>
+            </div>
+          </div>
+
           <Modal
             width="100%"
             className="ModalViewImage"
@@ -575,7 +425,7 @@ const MobileWebCam = () => {
               <button className="buttonCloseModalView" onClick={handleCancel}>
                 <img src={iconClose} />
               </button>
-              {countCheckedImages() > 0 ? (
+              {/* {countCheckedImages() > 0 ? (
                 <>
                   <span className="spanTitleHeader">
                     Đã chọn {countCheckedImages()} ảnh
@@ -587,15 +437,30 @@ const MobileWebCam = () => {
                   <span className="spanTitleHeader">Ảnh đã chụp</span>
                   <span className="spanTitleChoose">Chọn</span>
                 </>
+              )} */}
+              {countCheckedImages() > 0 ? (
+                <>
+                  <span className="spanTitleHeader">
+                    Đã chọn {countCheckedImages()} ảnh
+                  </span>
+                  <button
+                    className="spanTitleChoose"
+                    onClick={onClickCancelCheckImage}
+                  >
+                    <span>Hủy</span>
+                  </button>
+                </>
+              ) : (
+                <>
+                  <span className="spanTitleHeader">Ảnh đã chụp</span>
+                  <button
+                    className="spanTitleChoose"
+                    onClick={onClickChooseAllImage}
+                  >
+                    <span>Chọn</span>
+                  </button>
+                </>
               )}
-              {/* <span className="spanTitleHeader">
-            {countCheckedImages() > 0 ? (
-              <span>Đã chọn {countCheckedImages()} ảnh</span>
-            ) : (
-              <span>Ảnh đã chụp</span>
-            )}
-          </span>
-          <span>Chọn</span> */}
             </div>
             <div
               className="imageGallery"
@@ -627,7 +492,7 @@ const MobileWebCam = () => {
               ))}
             </div>
             <div className="FooterDeleteImage">
-              {isPrioritize ? (
+              {/* {isPrioritize ? (
                 <button className="buttonDeleteImage">
                   <span className="textButtonDelete">
                     Tệp ảnh này đã được ưu tiên
@@ -675,23 +540,66 @@ const MobileWebCam = () => {
                     </div>
                   </Modal>
                 </>
+              ) : null} */}
+              {countCheckedImages() > 0 ? (
+                <>
+                  <button
+                    onClick={handleDeleteImages}
+                    className="buttonDeleteImage"
+                  >
+                    <span className="textButtonDelete">
+                      Xóa {countCheckedImages()} ảnh
+                    </span>
+                  </button>
+                  <Modal
+                    className="ModalDeleteImages"
+                    open={isModalDeleteImage}
+                    closable={false}
+                    footer={null}
+                    width={"65%"}
+                    style={{
+                      top: "35%",
+                      padding: " 10px",
+                      borderRadius: " 8px",
+                      gap: "8px",
+                    }}
+                  >
+                    <div className="TitleDeleteImage">
+                      <span>Bạn có chắc chắn muốn xóa ảnh này không ?</span>
+                    </div>
+                    <div className="ButtonDeleteModal">
+                      <button
+                        className="ButtonDeleteAll"
+                        onClick={handleDeleteImagesOk}
+                      >
+                        Có
+                      </button>
+                      <button
+                        className="ButtonDeleteAll"
+                        onClick={handleDeleteCancel}
+                      >
+                        Không
+                      </button>
+                    </div>
+                  </Modal>
+                </>
               ) : null}
             </div>
             <div className="footerModal">
               <div className="divUploadBtn">
                 <button className="uploadButton" onClick={multiUploadImage}>
-                  <img src={iconUpload} />
+                  <img src={isUpdating ? iconUploadActive : iconUpload} />
                 </button>
                 <span>Upload Toàn bộ</span>
               </div>
               <div className="divCheckbox">
                 <button onClick={buttonPrioritize} className="checkBoxButton">
-                  <img src={iconImportant} />
+                  <img
+                    src={isPrioritize ? iconImportantActive : iconImportant}
+                  />
                 </button>
                 <span>Ưu tiên</span>
               </div>
-
-              {/* <input className="checkBoxButton" type="checkbox" /> */}
             </div>
           </Modal>
         </>
@@ -700,4 +608,4 @@ const MobileWebCam = () => {
   );
 };
 
-export default MobileWebCam;
+export default MobileWebCam2;

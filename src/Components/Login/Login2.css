@@ -10,11 +10,11 @@
     /* transform: translateX(-50%); */
     .logoIwaki > img {
       position: absolute;
-      width: 129px;
-      height: 46px;
+      width: 20%;
+      height: auto;
       left: 50%;
       transform: translateX(-50%);
-      top: 75px;
+      top: 70px;
     }
     .LoginTitle {
       position: absolute;
@@ -123,8 +123,8 @@
     transform: translateX(-50%);
     .logoIwaki > img {
       position: absolute;
-      width: 129px;
-      height: 46px;
+      width: 30%;
+      height: auto;
       left: 50%;
       transform: translateX(-50%);
       top: 167px;

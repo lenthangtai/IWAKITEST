@@ -4,6 +4,7 @@ import Login2 from "./Components/Login/Login2";
 import FormSelect2 from "./Components/formSelect/formSelect2";
 import CameraForm from "./Components/Camera/cameraForm";
 import ModalImage from "./Components/formSelect/modalUpload/Mobile/ModalImage";
+import MobileWebCam2 from "./Components/Camera/Mobile/CameraMobile";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/Login" element={<Login2 />} />
           <Route path="/FormSelect" element={<FormSelect2 />} />
           <Route path="/CaptureCamera" element={<CameraForm />} />
+
           {/* <Route path="/ModalImage" element={<ModalImage />} /> */}
         </Routes>
       </BrowserRouter>
