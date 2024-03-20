@@ -172,7 +172,7 @@ span.spanOptionKeyItem:hover {
 
   .ant-select.optionMachineSelect.css-dev-only-do-not-override-i46qwz.ant-select-single.ant-select-show-arrow {
     width: 120%;
-    height: 50px;
+    height: 64px !important;
   }
   .optionMachineSelect .ant-select-selector {
     border: 1px solid #f6f6f6 !important;
@@ -325,7 +325,7 @@ span.spanOptionKeyItem:hover {
   }
   .ant-select.optionMachineSelect.css-dev-only-do-not-override-i46qwz.ant-select-single.ant-select-show-arrow {
     width: 120%;
-    height: 50px;
+    height: 50px!important;
   }
   .optionMachineSelect .ant-select-selector {
     border: 1px solid #f6f6f6 !important;
@@ -479,7 +479,7 @@ span.spanOptionKeyItem:hover {
   }
   .ant-select.optionMachineSelect.css-dev-only-do-not-override-i46qwz.ant-select-single.ant-select-show-arrow {
     width: 125%;
-    height: 50px;
+    height: 50px !important;
   }
   .optionMachineSelect .ant-select-selector {
     border: 1px solid #f6f6f6 !important;
@@ -633,7 +633,7 @@ span.spanOptionKeyItem:hover {
   }
   .ant-select.optionMachineSelect.css-dev-only-do-not-override-i46qwz.ant-select-single.ant-select-show-arrow {
     width: 130%;
-    height: 50px;
+    height: 50px !important;
   }
   .optionMachineSelect .ant-select-selector {
     border: 1px solid #f6f6f6 !important;
@@ -787,7 +787,7 @@ span.spanOptionKeyItem:hover {
   }
   .ant-select.optionMachineSelect.css-dev-only-do-not-override-i46qwz.ant-select-single.ant-select-show-arrow {
     width: 130%;
-    height: 50px;
+    height: 50px!important; 
   }
   .optionMachineSelect .ant-select-selector {
     border: 1px solid #f6f6f6 !important;
@@ -941,7 +941,7 @@ span.spanOptionKeyItem:hover {
   }
   .ant-select.optionMachineSelect.css-dev-only-do-not-override-i46qwz.ant-select-single.ant-select-show-arrow {
     width: 130%;
-    height: 70px;
+    height: 70px !important;
   }
   .optionMachineSelect .ant-select-selector {
     border: 1px solid #f6f6f6 !important;
