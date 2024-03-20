@@ -1,0 +1,1153 @@
+.HeaderModalSelect {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.imageGallery {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  flex-wrap: wrap;
+  justify-content: space-between;
+  overflow-y: auto;
+}
+.image-item {
+  position: relative;
+}
+.inputChooseSelect {
+  position: absolute;
+  right: 0;
+}
+button.buttonDeleteImage {
+  background: #5fc9ab;
+  border: none;
+  box-shadow: 0px -1px 20px 0px #006ee91a;
+}
+.FooterDeleteImage {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.footerModal {
+  position: absolute;
+}
+.divUploadBtn {
+  position: absolute;
+}
+.divCheckPrioritize {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.uploadButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.checkBoxButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.buttonCloseModalView {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  border: none;
+}
+.TitleUpdateModal,
+.TitleDeleteImage {
+  text-align: center;
+}
+.ButtonDeleteModal {
+  display: flex;
+  justify-content: space-between;
+}
+.ButtonDeleteAll:hover {
+  color: #231b9a;
+}
+.ButtonUpdateModal {
+  display: flex;
+  justify-content: space-between;
+}
+.ButtonUpdateAll:hover {
+  color: #231b9a;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+.custome-class-success {
+  border: 0;
+  height: auto;
+}
+.custome-class-loading {
+  border: 0;
+  height: auto;
+}
+
+@media (max-width: 470px) {
+  .ant-modal.css-dev-only-do-not-override-i46qwz.ModalViewImageSelect {
+    max-width: 100%;
+    width: 100% !important;
+    top: 30px;
+  }
+  .HeaderModalSelect {
+    padding: 5%;
+  }
+  .ModalViewImageSelect > .ant-modal-content {
+    height: 80svh;
+    border-radius: 0;
+    padding: 0;
+  }
+  .imageGallery {
+    gap: 10px;
+    max-height: 60svh;
+    margin: 0 4% 0;
+  }
+  .image-item {
+    /* position: relative; */
+    width: calc(100%);
+    margin-bottom: 10px;
+  }
+  img.imageSourceGalley {
+    width: 100%;
+    height: 15svh;
+  }
+  input.inputChooseSelect {
+    width: 16px;
+    height: 16px;
+  }
+  button.buttonDeleteImage {
+    width: 100%;
+    height: 6svh;
+  }
+
+  .divUploadBtn {
+    left: 20px;
+  }
+  .divCheckPrioritize {
+    right: 15px;
+  }
+  .footerModal {
+    width: 100%;
+    bottom: -3svh;
+  }
+  .uploadButton,
+  .checkBoxButton {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .buttonChoose {
+    width: 36px;
+  }
+  .buttonCloseModalView {
+    width: 30px;
+    height: 30px;
+    border-radius: 20%;
+  }
+  img.iconCloseSelect {
+    width: 30px;
+    height: 30px;
+  }
+  span.textButtonDelete {
+    font-family: Lato;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: -0.40799999237060547px;
+    text-align: center;
+    color: #ffffff;
+  }
+  span.spanTitleHeader {
+    font-family: Lato;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: -0.40799999237060547px;
+    text-align: center;
+    color: #25355b;
+  }
+  span.buttonChoose {
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: -0.40799999237060547px;
+    text-align: center;
+    color: #25355b;
+  }
+  /*MODAL UPLOAD DELETE*/
+  .ant-modal.css-dev-only-do-not-override-i46qwz.ModalDeleteImageSelect {
+    max-width: 60%;
+    width: 60% !important;
+    top: 30svh;
+  }
+  .TitleDeleteImage {
+    span {
+      font-family: Lato;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.20000000298023224px;
+      color: #25282b;
+    }
+    margin-bottom: 5%;
+  }
+  .ButtonDeleteModal {
+    gap: 20px;
+    width: 100%;
+  }
+  .ButtonDeleteAll {
+    width: 100%;
+    height: 28px;
+
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #394b76;
+  }
+  .ant-modal.css-dev-only-do-not-override-i46qwz.ModelUploadImage {
+    max-width: 60%;
+    width: 60% !important;
+    top: 30svh;
+  }
+  .TitleUpdateModal {
+    span {
+      font-family: Lato;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.20000000298023224px;
+      color: #25282b;
+    }
+    margin-bottom: 5%;
+  }
+  .ButtonUpdateModal {
+    gap: 20px;
+    width: 100%;
+  }
+  .ButtonUpdateAll {
+    width: 100%;
+    height: 28px;
+
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #394b76;
+  }
+  .custome-class-loading {
+    img {
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      transform-origin: center center;
+    }
+  }
+  .swal2-title.custome-title-loading {
+    font-family: Lato;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #394b76;
+  }
+  .swal2-popup.swal2-modal.custome-form-loading.swal2-show {
+    width: 60%;
+    top: -20%;
+    height: 136px;
+  }
+
+  .custome-class-success {
+    img {
+      width: 60px;
+      height: 60px;
+    }
+  }
+  .swal2-title.custome-title-success {
+    font-family: Lato;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #394b76;
+  }
+  .swal2-popup.swal2-modal.custome-form-success.swal2-show {
+    width: 60%;
+    top: -20%;
+  }
+}
+@media (min-width: 471px) {
+  .ant-modal.css-dev-only-do-not-override-i46qwz.ModalViewImageSelect {
+    max-width: 100%;
+    width: 75% !important;
+    top: 30px;
+  }
+  .HeaderModalSelect {
+    padding: 5%;
+  }
+  .ModalViewImageSelect > .ant-modal-content {
+    height: 80svh;
+    border-radius: 28px;
+    padding: 0;
+  }
+
+  .imageGallery {
+    gap: 10px;
+    max-height: 60svh;
+    margin: 0 5% 0;
+  }
+  .image-item {
+    /* position: relative; */
+    width: calc(100%);
+    margin-bottom: 10px;
+  }
+  img.imageSourceGalley {
+    width: 100%;
+    height: 15svh;
+  }
+  input.inputChooseSelect {
+    width: 18px;
+    height: 18px;
+  }
+  button.buttonDeleteImage {
+    width: 100%;
+    height: 7svh;
+    border-radius: 0px 0px 28px 28px;
+  }
+
+  /*Footer Button Upload Delete*/
+  .footerModal {
+    width: 100%;
+    bottom: -5svh;
+  }
+  .uploadButton,
+  .checkBoxButton {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  .divUploadBtn {
+    left: 20px;
+  }
+  .divCheckPrioritize {
+    right: 15px;
+  }
+  .buttonChoose {
+    width: 42px;
+  }
+  .buttonCloseModalView {
+    width: 34px;
+    height: 34px;
+    border-radius: 20%;
+  }
+  img.iconCloseSelect {
+    width: 34px;
+    height: 34px;
+  }
+  span.textButtonDelete {
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: -0.40799999237060547px;
+    text-align: center;
+    color: #ffffff;
+  }
+  span.spanTitleHeader {
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: -0.40799999237060547px;
+    text-align: center;
+    color: #25355b;
+  }
+  span.buttonChoose {
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: -0.40799999237060547px;
+    text-align: center;
+    color: #25355b;
+  }
+  .ant-modal.css-dev-only-do-not-override-i46qwz.ModalDeleteImageSelect {
+    max-width: 60%;
+    width: 35% !important;
+    top: 30svh;
+  }
+  .TitleDeleteImage {
+    span {
+      font-family: Lato;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.20000000298023224px;
+      color: #25282b;
+    }
+    margin-bottom: 5%;
+  }
+  .ButtonDeleteModal {
+    gap: 20px;
+    width: 100%;
+  }
+  .ButtonDeleteAll {
+    width: 100%;
+    height: 32px;
+
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #394b76;
+  }
+  .ant-modal.css-dev-only-do-not-override-i46qwz.ModelUploadImage {
+    max-width: 60%;
+    width: 35% !important;
+    top: 30svh;
+  }
+  .TitleUpdateModal {
+    span {
+      font-family: Lato;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.20000000298023224px;
+      color: #25282b;
+    }
+    margin-bottom: 5%;
+  }
+  .ButtonUpdateModal {
+    gap: 20px;
+    width: 100%;
+  }
+  .ButtonUpdateAll {
+    width: 100%;
+    height: 32px;
+
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #394b76;
+  }
+  .custome-class-loading {
+    img {
+      width: 76px;
+      height: 76px;
+      animation: spin 1s linear infinite;
+      transform-origin: center center;
+    }
+  }
+  .swal2-title.custome-title-loading {
+    font-family: Lato;
+    font-size: 20x;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #394b76;
+  }
+  .swal2-popup.swal2-modal.custome-form-loading.swal2-show {
+    width: 50%;
+    top: -20%;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .custome-class-success {
+    img {
+      width: 76px;
+      height: 76px;
+    }
+  }
+  .swal2-title.custome-title-success {
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #394b76;
+  }
+  .swal2-popup.swal2-modal.custome-form-success.swal2-show {
+    width: 50%;
+    top: -20%;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media (min-width: 769px) {
+  .ant-modal.css-dev-only-do-not-override-i46qwz.ModalViewImageSelect {
+    max-width: 100%;
+    width: 65% !important;
+    top: 30px;
+  }
+  .HeaderModalSelect {
+    padding: 5%;
+  }
+  .ModalViewImageSelect > .ant-modal-content {
+    height: 80svh;
+    border-radius: 28px;
+    padding: 0;
+  }
+
+  .imageGallery {
+    gap: 10px;
+    max-height: 60svh;
+    margin: 0 5% 0;
+  }
+  .image-item {
+    /* position: relative; */
+    width: calc(100%);
+    margin-bottom: 10px;
+  }
+  img.imageSourceGalley {
+    width: 100%;
+    height: 15svh;
+  }
+  input.inputChooseSelect {
+    width: 20px;
+    height: 20px;
+  }
+  button.buttonDeleteImage {
+    width: 100%;
+    height: 7svh;
+    border-radius: 0px 0px 28px 28px;
+  }
+
+  /*Footer Button Upload Delete*/
+  .footerModal {
+    width: 100%;
+    bottom: -5svh;
+  }
+  .uploadButton,
+  .checkBoxButton {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    img {
+      width: 28px;
+      height: 28px;
+    }
+  }
+  .divUploadBtn {
+    left: 20px;
+  }
+  .divCheckPrioritize {
+    right: 15px;
+  }
+  .buttonChoose {
+    width: 56px;
+  }
+  .buttonCloseModalView {
+    width: 36px;
+    height: 36px;
+    border-radius: 20%;
+  }
+  img.iconCloseSelect {
+    width: 36px;
+    height: 36px;
+  }
+  span.textButtonDelete {
+    font-family: Lato;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: -0.40799999237060547px;
+    text-align: center;
+    color: #ffffff;
+  }
+  span.spanTitleHeader {
+    font-family: Lato;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: -0.40799999237060547px;
+    text-align: center;
+    color: #25355b;
+  }
+  span.buttonChoose {
+    font-family: Lato;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: -0.40799999237060547px;
+    text-align: center;
+    color: #25355b;
+  }
+  .ant-modal.css-dev-only-do-not-override-i46qwz.ModalDeleteImageSelect {
+    max-width: 60%;
+    width: 35% !important;
+    top: 30svh;
+  }
+  .TitleDeleteImage {
+    span {
+      font-family: Lato;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.20000000298023224px;
+      color: #25282b;
+    }
+    margin-bottom: 5%;
+  }
+  .ButtonDeleteModal {
+    gap: 20px;
+    width: 100%;
+  }
+  .ButtonDeleteAll {
+    width: 100%;
+    height: 32px;
+
+    font-family: Lato;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #394b76;
+  }
+  .ant-modal.css-dev-only-do-not-override-i46qwz.ModelUploadImage {
+    max-width: 60%;
+    width: 35% !important;
+    top: 30svh;
+  }
+  .TitleUpdateModal {
+    span {
+      font-family: Lato;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.20000000298023224px;
+      color: #25282b;
+    }
+    margin-bottom: 5%;
+  }
+  .ButtonUpdateModal {
+    gap: 20px;
+    width: 100%;
+  }
+  .ButtonUpdateAll {
+    width: 100%;
+    height: 32px;
+
+    font-family: Lato;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #394b76;
+  }
+  .custome-class-loading {
+    img {
+      width: 76px;
+      height: 76px;
+      animation: spin 1s linear infinite;
+      transform-origin: center center;
+    }
+  }
+  .swal2-title.custome-title-loading {
+    font-family: Lato;
+    font-size: 20x;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #394b76;
+  }
+  .swal2-popup.swal2-modal.custome-form-loading.swal2-show {
+    width: 40%;
+    top: -20%;
+    height: 240px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .custome-class-success {
+    img {
+      width: 76px;
+      height: 76px;
+    }
+  }
+  .swal2-title.custome-title-success {
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #394b76;
+  }
+  .swal2-popup.swal2-modal.custome-form-success.swal2-show {
+    width: 40%;
+    top: -20%;
+    height: 240px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1025px) {
+  .ant-modal.css-dev-only-do-not-override-i46qwz.ModalViewImageSelect {
+    max-width: 100%;
+    width: 50% !important;
+    top: 30px;
+  }
+  .HeaderModalSelect {
+    padding: 5%;
+  }
+  .ModalViewImageSelect > .ant-modal-content {
+    height: 80svh;
+    border-radius: 28px;
+    padding: 0;
+  }
+
+  .imageGallery {
+    gap: 10px;
+    max-height: 60svh;
+    margin: 0 5% 0;
+  }
+  .image-item {
+    /* position: relative; */
+    width: calc(100%);
+    margin-bottom: 10px;
+  }
+  img.imageSourceGalley {
+    width: 100%;
+    height: 15svh;
+  }
+  input.inputChooseSelect {
+    width: 20px;
+    height: 20px;
+  }
+  button.buttonDeleteImage {
+    width: 100%;
+    height: 6svh;
+    border-radius: 0px 0px 28px 28px;
+  }
+
+  /*Footer Button Upload Delete*/
+  .footerModal {
+    width: 100%;
+    bottom: -5svh;
+  }
+  .uploadButton,
+  .checkBoxButton {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    img {
+      width: 28px;
+      height: 28px;
+    }
+  }
+  .divUploadBtn {
+    left: 20px;
+  }
+  .divCheckPrioritize {
+    right: 15px;
+  }
+  .buttonChoose {
+    width: 56px;
+  }
+  .buttonCloseModalView {
+    width: 38px;
+    height: 38px;
+    border-radius: 20%;
+  }
+  img.iconCloseSelect {
+    width: 38px;
+    height: 38px;
+  }
+  span.textButtonDelete {
+    font-family: Lato;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: -0.40799999237060547px;
+    text-align: center;
+    color: #ffffff;
+  }
+  span.spanTitleHeader {
+    font-family: Lato;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: -0.40799999237060547px;
+    text-align: center;
+    color: #25355b;
+  }
+  span.buttonChoose {
+    font-family: Lato;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: -0.40799999237060547px;
+    text-align: center;
+    color: #25355b;
+  }
+  .ant-modal.css-dev-only-do-not-override-i46qwz.ModalDeleteImageSelect {
+    max-width: 60%;
+    width: 25% !important;
+    top: 30svh;
+  }
+  .TitleDeleteImage {
+    span {
+      font-family: Lato;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.20000000298023224px;
+      color: #25282b;
+    }
+    margin-bottom: 5%;
+  }
+  .ButtonDeleteModal {
+    gap: 20px;
+    width: 100%;
+  }
+  .ButtonDeleteAll {
+    width: 100%;
+    height: 32px;
+
+    font-family: Lato;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #394b76;
+  }
+  .ant-modal.css-dev-only-do-not-override-i46qwz.ModelUploadImage {
+    max-width: 60%;
+    width: 25% !important;
+    top: 30svh;
+  }
+  .TitleUpdateModal {
+    span {
+      font-family: Lato;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.20000000298023224px;
+      color: #25282b;
+    }
+    margin-bottom: 5%;
+  }
+  .ButtonUpdateModal {
+    gap: 20px;
+    width: 100%;
+  }
+  .ButtonUpdateAll {
+    width: 100%;
+    height: 32px;
+
+    font-family: Lato;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #394b76;
+  }
+  .custome-class-loading {
+    img {
+      width: 76px;
+      height: 76px;
+      animation: spin 1s linear infinite;
+      transform-origin: center center;
+    }
+  }
+  .swal2-title.custome-title-loading {
+    font-family: Lato;
+    font-size: 20x;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #394b76;
+  }
+  .swal2-popup.swal2-modal.custome-form-loading.swal2-show {
+    width: 30%;
+    top: -20%;
+    height: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .custome-class-success {
+    img {
+      width: 76px;
+      height: 76px;
+    }
+  }
+  .swal2-title.custome-title-success {
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #394b76;
+  }
+  .swal2-popup.swal2-modal.custome-form-success.swal2-show {
+    width: 30%;
+    top: -20%;
+    height: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media (min-width: 1921px) {
+  .ant-modal.css-dev-only-do-not-override-i46qwz.ModalViewImageSelect {
+    max-width: 100%;
+    width: 45% !important;
+    top: 30px;
+  }
+  .HeaderModalSelect {
+    padding: 5%;
+  }
+  .ModalViewImageSelect > .ant-modal-content {
+    height: 85svh;
+    border-radius: 28px;
+    padding: 0;
+  }
+
+  .imageGallery {
+    gap: 10px;
+    max-height: 60svh;
+    margin: 0 5% 0;
+  }
+  .image-item {
+    /* position: relative; */
+    width: calc(100%);
+    margin-bottom: 10px;
+  }
+  img.imageSourceGalley {
+    width: 100%;
+    height: 15svh;
+  }
+  input.inputChooseSelect {
+    width: 20px;
+    height: 20px;
+  }
+  button.buttonDeleteImage {
+    width: 100%;
+    height: 6svh;
+    border-radius: 0px 0px 28px 28px;
+  }
+
+  /*Footer Button Upload Delete*/
+  .footerModal {
+    width: 100%;
+    bottom: -5svh;
+  }
+  .uploadButton,
+  .checkBoxButton {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    img {
+      width: 42px;
+      height: 42px;
+    }
+  }
+  .divUploadBtn {
+    left: 20px;
+  }
+  .divCheckPrioritize {
+    right: 15px;
+  }
+  .buttonChoose {
+    width: 56px;
+  }
+  .buttonCloseModalView {
+    width: 56px;
+    height: 56px;
+    border-radius: 20%;
+  }
+  img.iconCloseSelect {
+    width: 56px;
+    height: 56px;
+  }
+  span.textButtonDelete {
+    font-family: Lato;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: -0.40799999237060547px;
+    text-align: center;
+    color: #ffffff;
+  }
+  span.spanTitleHeader {
+    font-family: Lato;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: -0.40799999237060547px;
+    text-align: center;
+    color: #25355b;
+  }
+  span.buttonChoose {
+    font-family: Lato;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: -0.40799999237060547px;
+    text-align: center;
+    color: #25355b;
+  }
+  .ant-modal.css-dev-only-do-not-override-i46qwz.ModalDeleteImageSelect {
+    max-width: 60%;
+    width: 15% !important;
+    top: 30svh;
+  }
+  .TitleDeleteImage {
+    span {
+      font-family: Lato;
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.20000000298023224px;
+      color: #25282b;
+    }
+    margin-bottom: 5%;
+  }
+  .ButtonDeleteModal {
+    gap: 20px;
+    width: 100%;
+  }
+  .ButtonDeleteAll {
+    width: 100%;
+    height: 52px;
+
+    font-family: Lato;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #394b76;
+  }
+  .ant-modal.css-dev-only-do-not-override-i46qwz.ModelUploadImage {
+    max-width: 60%;
+    width: 15% !important;
+    top: 30svh;
+  }
+  .TitleUpdateModal {
+    span {
+      font-family: Lato;
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.20000000298023224px;
+      color: #25282b;
+    }
+    margin-bottom: 5%;
+  }
+  .ButtonUpdateModal {
+    gap: 20px;
+    width: 100%;
+  }
+  .ButtonUpdateAll {
+    width: 100%;
+    height: 52px;
+
+    font-family: Lato;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #394b76;
+  }
+  .custome-class-loading {
+    img {
+      width: 120px;
+      height: 120px;
+      animation: spin 1s linear infinite;
+      transform-origin: center center;
+    }
+  }
+  .swal2-title.custome-title-loading {
+    font-family: Lato;
+    font-size: 24x;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #394b76;
+  }
+  .swal2-popup.swal2-modal.custome-form-loading.swal2-show {
+    width: 30%;
+    top: -20%;
+    height: 360px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .custome-class-success {
+    img {
+      width: 120px;
+      height: 120px;
+    }
+  }
+  .swal2-title.custome-title-success {
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: center;
+    color: #394b76;
+  }
+  .swal2-popup.swal2-modal.custome-form-success.swal2-show {
+    width: 30%;
+    top: -20%;
+    height: 360px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
